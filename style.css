@@ -1,0 +1,578 @@
+body {
+  font-family: 'Exo 2', sans-serif;
+  background: #16131c;
+  padding: 20px;
+  text-align: center;
+}
+
+body.modal-open {
+  overflow: hidden; /* impede o scroll da página */
+}
+
+h1 {
+    color: #23ee82;
+    font-size: 50px;
+}
+
+/* Scroll para Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 12px;               /* largura da barra */
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a26;       /* fundo do track */
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #23ee82, #00cfff, #ff6a00); /* thumb com gradiente */
+  border-radius: 6px;
+  border: 3px solid #1a1a26; /* cria espaço interno para dar efeito de borda */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00cfff, #ff6a00, #ff00ff);
+}
+
+/* Scroll para Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #23ee82 #1a1a26;
+}
+
+
+.home-section {
+  height: 100vh; /* ocupa toda a tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a26, #16131c);
+  color: #ffffff;
+  padding: 0 20px;
+}
+
+.home-section h1 {
+  font-size: 60px;
+  color: #23ee82;
+  margin-top: 0px;
+}
+
+.home-section h2 {
+  font-size: 28px;
+  color: #aaaaaa;
+  margin-top: 0px;
+}
+
+.home-section p {
+  font-size: 18px;
+  color: #dddddd;
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.6;
+}
+
+.home-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.home-buttons .btn {
+  background: #6911a7;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.home-buttons .btn:hover {
+  background: #540e86;
+  transform: scale(1.05);
+}
+
+/* CONTÊINER DE ELEMENTOS FLUTUANTES */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ELEMENTOS FLUTUANTES */
+.floating-elements span {
+  position: absolute;
+  opacity: 0.7;
+  animation: floatAnim linear infinite;
+}
+
+/* FORMAS */
+.circle {
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(135deg, #00d0ff, #00ff77);
+  border-radius: 50%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #ff00ff;
+}
+
+.hexagon {
+  width: 20px;
+  height: 11.55px; /* altura do hexagon */
+  background: #ff6200;
+  position: relative;
+  margin: 10px 0;
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.hexagon:before {
+  bottom: 100%;
+  border-bottom: 5.77px solid #ff6200;
+}
+
+.hexagon:after {
+  top: 100%;
+  border-top: 5.77px solid #ff6200;
+}
+
+/* POSIÇÃO INICIAL */
+.floating-elements span:nth-child(1) { left: 5%; top: 10%; animation-duration: 6s; }
+.floating-elements span:nth-child(2) { left: 15%; top: 30%; animation-duration: 8s; }
+.floating-elements span:nth-child(3) { right: 10%; top: 20%; animation-duration: 7s; }
+.floating-elements span:nth-child(4) { left: 8%; top: 50%; animation-duration: 9s; }
+.floating-elements span:nth-child(5) { right: 12%; top: 60%; animation-duration: 6s; }
+.floating-elements span:nth-child(6) { right: 5%; top: 40%; animation-duration: 10s; }
+
+/* ANIMAÇÃO */
+@keyframes floatAnim {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(50px) rotate(45deg); opacity: 0.4; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+}
+
+/* GARANTIR QUE O CONTEÚDO CENTRAL FIQUE NA FRENTE */
+.home-section .home-content {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-btn {
+  position: absolute;
+  margin-top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;       /* largura fixa */
+  height: 50px;      /* altura fixa */
+  font-size: 30px;
+  border-radius: 50%; /* círculo perfeito */
+  background: rgba(255, 255, 255, 0.2); /* semi-transparente */
+  border: none;
+  color: #23ee82;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 2;
+}
+
+.scroll-btn:hover {
+  background: #23ee8234;
+  transform: translateX(-50%) scale(1.2);
+}
+
+
+
+/* GRID: organiza os cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* responsivo */
+  gap: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.card {
+  background: rgb(26, 26, 38);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 1px solid transparent;
+  border-color: #23ee8238;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* garante que a imagem não ultrapasse o card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 7px 20px rgba(25, 167, 91, 0.326);
+  border-color: #23ee82;
+}
+
+.card:hover .card-img{
+    height: 195px;
+}
+
+.card:hover .card-img img {
+  transform: scale(1.1); /* aumenta 10% */
+}
+
+/* Imagem ocupando 100% da parte superior do card */
+.card-img {
+  width: 100%;
+  height: 200px; /* altura fixa do topo */
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobre todo o container sem distorcer */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Conteúdo abaixo da imagem */
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-content h3 {
+  margin: 10px 0;
+  font-size: 22px;
+  color: #23ee82;
+  text-align: center;
+}
+
+.card-content p {
+  font-size: 15px;
+  color: #808080;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.tag {
+  background: rgb(47, 47, 57);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.btn-visit {
+  background: #7313b8;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition:background 0.3s ease;
+}
+
+.btn-visit:hover {
+  background: #5f0f98;
+}
+
+
+.descricao {
+    background: rgb(29, 29, 43);
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+/* ====== MODAL ====== */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+#modal-title{
+    font-size: 24px;
+    color: #23ee82;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+
+.modal-details {
+  display: flex;
+  justify-content: left; /* mantém as colunas à esquerda */
+  margin: 15px 0;
+  gap: 200px; /* distância entre left e right */
+}
+
+/* COLUNA ESQUERDA */
+.modal-details .details-left p {
+  font-size: 16px;
+  margin: 5px 0;
+  text-align: left;
+  font-weight: bold; /* label bold */
+  color: #dddddd;    /* cor da esquerda */
+}
+
+.modal-details .details-left .detail-value {
+  font-weight: normal; /* valor dinâmico normal */
+  color: #ffffff;      /* cor do valor */
+}
+
+/* COLUNA DIREITA */
+.modal-details .details-right p {
+  font-size: 16px;
+  margin-top: 10px;
+  text-align: left;
+  font-weight: bold; /* label bold */
+  color: #23ee82;    /* cor da direita */
+}
+
+.modal-details .details-right .detail-value {
+  font-weight: normal; /* valor dinâmico normal */
+  color: #dddddd;      /* cor do valor */
+}
+
+#modal-short{
+    font-size: 18px;
+    color: #aab0b2;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.modal-desc-title{
+    font-size: 18px;
+    color: #23ee82;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#modal-desc{
+    font-size: 15px;
+    color: #aab0b2;
+    text-align: left;
+}
+
+.modal-tech-title{
+    font-size: 18px;
+    color: #23ee82;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.modal-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: left;
+    margin-bottom: 15px;
+}
+
+.modal-responsabilities-title{
+    font-size: 18px;
+    color: #23ee82;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+.modal-responsabilities{
+    font-size: 15px;
+    color: #aab0b2;
+    text-align: left;
+}
+
+.modal-achievements-title{
+    font-size: 18px;
+    color: #23ee82;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+.modal-achievements{
+    font-size: 15px;
+    color: #aab0b2;
+    text-align: left;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #14141e;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #23ee8238;
+  box-shadow: 0px 7px 20px rgba(25, 167, 91, 0.326);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;        /* altura máxima 90% da tela */
+  color: #fff;
+  text-align: center;
+  transform: scale(0.8);
+  transition: transform 0.15s ease;
+  overflow-y: auto;        /* habilita scroll vertical */
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+/* Para WebKit (Chrome, Edge, Safari) */
+.modal-content::-webkit-scrollbar {
+  width: 10px;              /* largura da barra */
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1a1a26;      /* cor do fundo do track */
+  border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #23ee82;      /* cor da "thumb" (parte que você arrasta) */
+  border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #1aff96;      /* cor ao passar o mouse */
+}
+
+/* Para Firefox */
+.modal-content {
+  scrollbar-width: auto;           /* thin, auto, none */
+  scrollbar-color: #23ee82 #1a1a26; /* thumb e track */
+}
+
+.close {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #23ee82;
+}
+
+/* ====== CARROSSEL ====== */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+  height: 400px; /* altura do carrossel, deixa espaço para thumbs */
+}
+
+.carousel-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide img,
+.carousel-slide iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-thumbs {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.carousel-thumbs img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border-radius: 4px;
+  border: 2px solid transparent;
+}
+
+.carousel-thumbs img.active {
+  opacity: 1;
+  border-color: #23ee82;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
